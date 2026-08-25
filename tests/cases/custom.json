@@ -1,0 +1,1 @@
+{ "options": { "page-size": "Custom", "page-width": "180mm", "page-height": "120mm" }, "host_url": "http://localhost:8000/", "default_page_size": "A4" }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<style>
+  .print-format { font-family: Helvetica, Arial, sans-serif; font-size: 11pt; color:#222; }
+  .content-block { height: 520px; border:1px solid #ddd; margin-bottom:22px; padding:14px; background:#fafafa; }
+  .letter-head { border-bottom:2px solid #2c3e50; padding-bottom:6px; }
+  .page-number { text-align:center; font-size:9pt; color:#666; }
+  h3 { color:#2c3e50; margin:0; }
+  table { border-collapse: collapse; }
+  td, th { border:1px solid #bbb; padding:4px 8px; }
+</style>
+<script>
+function clone_and_update(selector, total_pages, is_pd, type, is_dynamic) {
+  var el = document.querySelector(selector);
+  if (!el) return;
+  var parent = el.parentNode;
+  var template = el.cloneNode(true);
+  el.remove();
+  var count = is_dynamic ? total_pages : 4;
+  for (var i = 1; i <= count; i++) {
+    var clone = template.cloneNode(true);
+    var topage = is_dynamic ? total_pages : 0;
+    clone.querySelectorAll('.page, .page_info_page').forEach(function(n){ n.textContent = i; });
+    clone.querySelectorAll('.topage, .page_info_topage').forEach(function(n){ n.textContent = topage; });
+    clone.querySelectorAll('.frompage, .page_info_frompage').forEach(function(n){ n.textContent = 1; });
+    parent.appendChild(clone);
+  }
+}
+</script>
+</head>
+<body>
+  <div class="print-format-gutter"><div class="print-format">
+    <div id="header-html" class="hidden-pdf">
+      <div class="letter-head"><h3>ACME Corporation</h3><div>123 Example Street, Metropolis</div></div>
+    </div>
+    <h2>Invoice INV-0007</h2>
+    <div class="content-block">Line items block 1 &mdash; the quick brown fox jumps over the lazy dog.
+      <table><tr><th>Item</th><th>Qty</th><th>Rate</th></tr><tr><td>Widget</td><td>3</td><td>10.00</td></tr></table>
+    </div>
+    <div class="content-block">Line items block 2 &mdash; pack my box with five dozen liquor jugs.</div>
+    <div class="content-block">Line items block 3 &mdash; sphinx of black quartz, judge my vow.</div>
+    <div class="content-block">Line items block 4 &mdash; how vexingly quick daft zebras jump.</div>
+    <div id="footer-html" class="visible-pdf">
+      <p class="page-number visible-pdf">Page <span class="page"></span> of <span class="topage"></span></p>
+    </div>
+  </div></div>
+</body></html>

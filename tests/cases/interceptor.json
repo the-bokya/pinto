@@ -1,0 +1,1 @@
+{ "options": { "page-size": "A4" }, "host_url": "http://localhost:8000/", "default_page_size": "A4", "bench_sites_path": "/home/qwerty/pilot/benches/frappe-bench2/sites", "site_public_path": "/home/qwerty/pilot/benches/frappe-bench2/sites/reference.local/public" }
