@@ -62,7 +62,7 @@ struct Cli {
 
 /// The chrome-PDF input contract: the Frappe `options` dict plus ambient values that
 /// Frappe would read from the DB/session (which a standalone binary must be given).
-#[derive(Deserialize, Default)]
+#[derive(Deserialize)]
 struct InputConfig {
     #[serde(default)]
     options: Map<String, Value>,
@@ -77,6 +77,23 @@ struct InputConfig {
     default_page_size: String,
     default_page_height: Option<String>,
     default_page_width: Option<String>,
+}
+
+impl Default for InputConfig {
+    fn default() -> Self {
+        // Match the serde field defaults (which only apply during deserialization).
+        InputConfig {
+            options: Map::new(),
+            is_print_designer: false,
+            host_url: default_host(),
+            sid: None,
+            bench_sites_path: None,
+            site_public_path: None,
+            default_page_size: default_a4(),
+            default_page_height: None,
+            default_page_width: None,
+        }
+    }
 }
 
 fn default_host() -> String {
